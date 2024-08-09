@@ -6,7 +6,7 @@ Author: [Abhijay Rajvansh](https://abhijayrajvansh.com)
 ### To spin up a next.js app using this template, use:
 
 ```
-pnpm create next-a[pp -e https://github.com/abhijayrajvansh/]rajvansh-nextjs-kit
+pnpm create next-app -e https://github.com/abhijayrajvansh/nextjs-starter-kit
 ```
 
 ### Configurations
