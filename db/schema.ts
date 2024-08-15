@@ -23,6 +23,21 @@ export const users = pgTable(
   role: authRole("role").notNull().default("USER"),
 })
 
+// for magic link email verification
+export const verificationTokens = pgTable(
+  "verificationToken",
+  {
+    identifier: text("identifier").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (verificationToken) => ({
+    compositePk: primaryKey({
+      columns: [verificationToken.identifier, verificationToken.token],
+    }),
+  })
+)
+
 // for user with social logins
 export const accounts = pgTable(
   "account",
@@ -46,21 +61,6 @@ export const accounts = pgTable(
   })
 )
 
-// for magic link email verification
-export const verificationTokens = pgTable(
-  "verificationToken",
-  {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
-  },
-  (verificationToken) => ({
-    compositePk: primaryKey({
-      columns: [verificationToken.identifier, verificationToken.token],
-    }),
-  })
-)
- 
 // export const sessions = pgTable("session", {
 //   sessionToken: text("sessionToken").primaryKey(),
 //   userId: text("userId")
@@ -68,7 +68,7 @@ export const verificationTokens = pgTable(
 //     .references(() => users.id, { onDelete: "cascade" }),
 //   expires: timestamp("expires", { mode: "date" }).notNull(),
 // })
- 
+
 // export const authenticators = pgTable(
 //   "authenticator",
 //   {
